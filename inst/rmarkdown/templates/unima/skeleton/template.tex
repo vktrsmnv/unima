@@ -18,7 +18,7 @@ $endif$
 \hypersetup{linkcolor=mannheimblue,
 citecolor=mannheimblue,
 filecolor=black,
-urlcolor=mannheimblue} 
+urlcolor=mannheimblue}
 
 
 % some more packages...
@@ -48,27 +48,59 @@ urlcolor=mannheimblue}
 % $endif$
 
 $if(csl-refs)$
+% Pandoc citation processing
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
  {% don't indent paragraphs
   \setlength{\parindent}{0pt}
   % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
   \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
  }%
  {}
-\usepackage{calc} % for \widthof, \maxof
+\usepackage{calc}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\maxof{\widthof{#1}}{\csllabelwidth}}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth}{#1}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 $endif$
+% $if(csl-refs)$
+% \newlength{\cslhangindent}
+% \setlength{\cslhangindent}{1.5em}
+% \newlength{\csllabelwidth}
+% \setlength{\csllabelwidth}{3em}
+% \newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+%  {% don't indent paragraphs
+%   \setlength{\parindent}{0pt}
+%   % turn on hanging indent if param 1 is 1
+%   \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+%   % set entry spacing
+%   \ifnum #2 > 0
+%   \setlength{\parskip}{#2\baselineskip}
+%   \fi
+%  }%
+%  {}
+% \usepackage{calc} % for \widthof, \maxof
+% \newcommand{\CSLBlock}[1]{#1\hfill\break}
+% \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\maxof{\widthof{#1}}{\csllabelwidth}}{#1}}
+% \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth}{#1}}
+% \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+% $endif$
 
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
@@ -228,17 +260,17 @@ $endif$
 \usepackage{url}
 \def\UrlBreaks{\do\/\do-}
 
-%%%% plagiarism 
+%%%% plagiarism
 
 \newcommand*{\SignatureAndDate}[1]{%
 \vspace{2cm}
      Mannheim, den \makebox[2cm]{\hrulefill} \hfill\makebox[9cm]{\hrulefill}%
      \par
-%  \makebox[2cm]{ Ort, Datum}     
+%  \makebox[2cm]{ Ort, Datum}
   \hfill\makebox[7.5cm][t]{Name und Unterschrift}
   \vspace{2cm}
 }%
- 
+
  \newcommand*{\SignatureAndDateEng}[1]{%
 \vspace{2cm}
      Mannheim, \makebox[2cm]{\hrulefill} \hfill\makebox[9cm]{\hrulefill}%
@@ -324,22 +356,24 @@ $endif$
 School of Social Sciences \\ \vspace{-0.2cm}
 Department of Political Science}}
 
-      \begin{figure}[!h]
+      $if(logo)$\begin{figure}[!h]
 			\centering
 			%\vspace{1.5cm}
-			$if(logo)$\includegraphics[width=6cm]{$logo$}$endif$
+			\includegraphics[width=6cm]{$logo$}
 		\end{figure}
+        \vspace{-0.5cm}$else$
+        \vspace{3.5cm}
+        $endif$
 
-        \vspace{-0.5cm}
        \large{ $if(type)$ $if(UP_type)$ \uppercase{$type$} $else$ $type$ $endif$ $else$  $endif$ }
-       
-       
+
+
        \large{ \textit{ $if(course)$ $if(UP_course)$ \uppercase{$course$} $else$ $course$ $endif$ $else$  $endif$ }}
-       
+
 \renewcommand{\linethickness}{0.03em}
 \rule{\linewidth}{\linethickness}
 
-        
+
        \LARGE{ \textbf{ $if(title)$ $if(UP_title)$ \uppercase{$title$} $else$ $title$ $endif$ $else$ Untitled $endif$ }}
 
         % \vspace{-0.5cm}
@@ -351,8 +385,8 @@ Department of Political Science}}
 
 
 \begin{minipage}[t]{0.5\textwidth}
-\begin{flushleft} 
-\singlespacing 
+\begin{flushleft}
+\singlespacing
 $if(author)$ \textbf{$author$}  \\ $endif$
 $if(ID)$ $ID$ \\ $endif$
 $if(address)$ $address$  \\ $endif$
@@ -368,19 +402,19 @@ $if(phone)$ $phone$  \\ $endif$
 \hfill
 \end{minipage}
 \begin{minipage}[t]{$mp$\textwidth}
-\begin{flushright} 
-\singlespacing 
-$if(examiner)$     $examiner$  \\       $endif$ 
+\begin{flushright}
+\singlespacing
+$if(examiner)$     $examiner$  \\       $endif$
 $if(chair)$     $chair$   \\      $endif$
 \end{flushright}
 \end{minipage}\\
-% 
-      
+%
+
 
          \vfill
-        $if(date)$ Submission Date: $date$ \\ $endif$ 
-        $if(wordcount)$ $wordcount$ \\ $endif$ 
-        
+        $if(date)$ Submission Date: $date$ \\ $endif$
+        $if(wordcount)$ $wordcount$ \\ $endif$
+
 
 
 
@@ -406,7 +440,7 @@ $if(abstract)$
 $endif$
 
 
-   
+
 $for(include-before)$
 $include-before$
 
@@ -463,11 +497,11 @@ $body$
 % $if(biblatex)$
 % \newpage
 % \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-% 
+%
 % $endif$
 % $for(include-after)$
 % $include-after$
-% 
+%
 % $endfor$
 
 \end{document}

@@ -34,7 +34,7 @@ examiner: Prof. Thomas Gschwend, Ph.D.
 chair: ''
 mp: 0.55
 ID: ''
-wordcount: '*Wordcount excluding References: `r unima-template::count_words(knitr::current_input())`*' 
+wordcount: '*Wordcount excluding References: `r unima::count_words(knitr::current_input())`*' 
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-political-science-association.csl
 editor_options:
   markdown:
@@ -58,7 +58,7 @@ lapply(p_needed[!(p_needed %in% rownames(installed.packages()))], install.packag
 lapply(p_needed, library, character.only = TRUE)
 
 # separately install for the correct wordcount package 
-if (!"unima-template" %in% rownames(installed.packages())){
+if (!"unima" %in% rownames(installed.packages())){
   remotes::install_github("vktrsmnv/unima-template", upgrade = "never", dependencies = TRUE)
   }
 
