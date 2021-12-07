@@ -17,7 +17,6 @@ URL: https://github.com/vktrsmnv/unima
 BugReports: https://github.com/vktrsmnv/unima/issues
 Imports: 
     dplyr,
-    ggplot2,
     knitr,
     magrittr,
     readr,
