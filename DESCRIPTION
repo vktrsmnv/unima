@@ -1,13 +1,12 @@
 Package: unima
-Title: What the Package Does (One Line, Title Case)
+Title: Paper Template for Uni Mannheim
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Viktoriia",
+           family = "Semenova",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "semenova@uni-mannheim.de")
+Description: This R package provides a template for writing term papers for Uni Mannheim in R Markdown, and compiling to PDF via the LaTeX.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
