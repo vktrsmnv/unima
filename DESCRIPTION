@@ -1,21 +1,28 @@
-Package: unima-template
-Title: Term Paper Template for Uni Mannheim
+Package: unima
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Viktoriia",
-           family = "Semenova",
+    person(given = "First",
+           family = "Last",
            role = c("aut", "cre"),
-           email = "viktoriia.semenov@gmail.com")
-Description: This R package provides a template for writing term papers for Uni Mannheim in R Markdown, and compiling to PDF via the LaTeX.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 URL: https://github.com/vktrsmnv/unima
 BugReports: https://github.com/vktrsmnv/unima/issues
 Imports: 
     dplyr,
+    ggplot2,
+    knitr,
+    magrittr,
     readr,
+    rlang,
+    rmarkdown,
+    stargazer,
     tibble,
     tidytext
