@@ -6,7 +6,7 @@ This R package provides a template for writing term papers for Uni Mannheim in R
 ``` r
 # The package isn't on CRAN - install the development version from GitHub:
 # install.packages("devtools")
-devtools::install_github("vktrsmnv/unima")
+devtools::install_github("uni-mannheim-qm-2021/unima")
 ```
 
 ## Usage
